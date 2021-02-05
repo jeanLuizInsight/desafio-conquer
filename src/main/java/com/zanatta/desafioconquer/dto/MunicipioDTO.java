@@ -1,16 +1,20 @@
 package com.zanatta.desafioconquer.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DTO para object Municipio
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 05/02/2021
  */
+@XmlRootElement
 public class MunicipioDTO {
 
-	private String codigoIBGE;
-	private String nomeIBGE;
-	private String pais;
-	private UfDTO Uf;
+	@JsonProperty("codigoIBGE") private String codigoIBGE;
+	@JsonProperty("nomeIBGE") private String nomeIBGE;
+	@JsonProperty("pais") private String pais;
+	@JsonProperty("uf") private UfDTO uf;
 
 	public String getCodigoIBGE() {
 		return this.codigoIBGE;
@@ -25,7 +29,7 @@ public class MunicipioDTO {
 	}
 
 	public UfDTO getUf() {
-		return this.Uf;
+		return this.uf;
 	}
 
 	public void setCodigoIBGE(final String codigoIBGE) {
@@ -41,7 +45,7 @@ public class MunicipioDTO {
 	}
 
 	public void setUf(final UfDTO uf) {
-		this.Uf = uf;
+		this.uf = uf;
 	}
 
 }

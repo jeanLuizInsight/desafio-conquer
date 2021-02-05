@@ -1,22 +1,26 @@
 package com.zanatta.desafioconquer.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DTO para object Cnae
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 05/02/2021
  */
+@XmlRootElement
 public class CnaeDTO {
 
-	private String classe;
-	private String codigoClasse;
-	private String codigoDivisao;
-	private String codigoGrupo;
-	private String codigoSecao;
-	private String codigoSubclasse;
-	private String divisao;
-	private String grupo;
-	private String secao;
-	private String subclasse;
+	@JsonProperty("classe") private String classe;
+	@JsonProperty("codigoClasse") private String codigoClasse;
+	@JsonProperty("codigoDivisao") private String codigoDivisao;
+	@JsonProperty("codigoGrupo") private String codigoGrupo;
+	@JsonProperty("codigoSecao") private String codigoSecao;
+	@JsonProperty("codigoSubclasse") private String codigoSubclasse;
+	@JsonProperty("divisao") private String divisao;
+	@JsonProperty("grupo") private String grupo;
+	@JsonProperty("secao") private String secao;
+	@JsonProperty("subclasse") private String subclasse;
 
 	public String getClasse() {
 		return this.classe;

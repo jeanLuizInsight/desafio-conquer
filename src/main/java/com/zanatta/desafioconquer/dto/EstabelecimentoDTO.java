@@ -1,31 +1,37 @@
 package com.zanatta.desafioconquer.dto;
 
+import java.time.LocalDateTime;
+import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DTO para object Estabelecimento
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 05/02/2021
  */
+@XmlRootElement
 public class EstabelecimentoDTO {
 
-	private CnaeDTO cnae;
-	private String codigoFormatado;
-	private String complementoEndereco;
-	private String dataAbertura;
-	private String descricaoLogradouro;
-	private String enderecoEletronico;
-	private String localidadePessoa;
-	private MunicipioDTO municipio;
-	private NaturezaJuridicaDTO naturezaJuridica;
-	private String nome;
-	private String nomeBairro;
-	private String nomeFantasiaReceita;
-	private String numeroCEP;
-	private String numeroEndereco;
-	private String numeroInscricaoSocial;
-	private String numeroTelefone;
-	private String razaoSocialReceita;
-	private String tipoCodigo;
-	private String tipoPessoa;
+	@JsonProperty("cnae") private CnaeDTO cnae;
+	@JsonProperty("codigoFormatado") private String codigoFormatado;
+	@JsonProperty("complementoEndereco") private String complementoEndereco;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "ddMMyyyy") @JsonProperty("dataAbertura") private LocalDateTime dataAbertura;
+	@JsonProperty("descricaoLogradouro") private String descricaoLogradouro;
+	@JsonProperty("enderecoEletronico") private String enderecoEletronico;
+	@JsonProperty("localidadePessoa") private String localidadePessoa;
+	@JsonProperty("municipio") private MunicipioDTO municipio;
+	@JsonProperty("naturezaJuridica") private NaturezaJuridicaDTO naturezaJuridica;
+	@JsonProperty("nome") private String nome;
+	@JsonProperty("nomeBairro") private String nomeBairro;
+	@JsonProperty("nomeFantasiaReceita") private String nomeFantasiaReceita;
+	@JsonProperty("numeroCEP") private String numeroCEP;
+	@JsonProperty("numeroEndereco") private String numeroEndereco;
+	@JsonProperty("numeroInscricaoSocial") private String numeroInscricaoSocial;
+	@JsonProperty("numeroTelefone") private String numeroTelefone;
+	@JsonProperty("razaoSocialReceita") private String razaoSocialReceita;
+	@JsonProperty("tipoCodigo") private String tipoCodigo;
+	@JsonProperty("tipoPessoa") private String tipoPessoa;
 
 	public CnaeDTO getCnae() {
 		return this.cnae;
@@ -39,7 +45,7 @@ public class EstabelecimentoDTO {
 		return this.complementoEndereco;
 	}
 
-	public String getDataAbertura() {
+	public LocalDateTime getDataAbertura() {
 		return this.dataAbertura;
 	}
 
@@ -115,7 +121,7 @@ public class EstabelecimentoDTO {
 		this.complementoEndereco = complementoEndereco;
 	}
 
-	public void setDataAbertura(final String dataAbertura) {
+	public void setDataAbertura(final LocalDateTime dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 

@@ -1,15 +1,19 @@
 package com.zanatta.desafioconquer.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DTO para object TipoCartao
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 05/02/2021
  */
+@XmlRootElement
 public class TipoCartaoDTO {
 
-	private Long codigo;
-	private String descricao;
-	private float id;
+	@JsonProperty("codigo") private Long codigo;
+	@JsonProperty("descricao") private String descricao;
+	@JsonProperty("id") private float id;
 
 	public Long getCodigo() {
 		return this.codigo;

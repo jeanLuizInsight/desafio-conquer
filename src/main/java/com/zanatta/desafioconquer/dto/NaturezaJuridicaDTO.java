@@ -1,18 +1,22 @@
 package com.zanatta.desafioconquer.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * DTO para object NaturezaJuridica
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 05/02/2021
  */
+@XmlRootElement
 public class NaturezaJuridicaDTO {
 
-	private Long codigo;
-	private String codigoTipo;
-	private String descricao;
-	private String descricaoTipo;
+	@JsonProperty("codigo") private String codigo;
+	@JsonProperty("codigoTipo") private String codigoTipo;
+	@JsonProperty("descricao") private String descricao;
+	@JsonProperty("descricaoTipo") private String descricaoTipo;
 
-	public Long getCodigo() {
+	public String getCodigo() {
 		return this.codigo;
 	}
 
@@ -28,7 +32,7 @@ public class NaturezaJuridicaDTO {
 		return this.descricaoTipo;
 	}
 
-	public void setCodigo(final Long codigo) {
+	public void setCodigo(final String codigo) {
 		this.codigo = codigo;
 	}
 
