@@ -66,6 +66,12 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jdk8</artifactId>
 		</dependency>
+		<!-- JUnit -->
+		<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<scope>test</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
