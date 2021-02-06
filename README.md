@@ -1,9 +1,8 @@
-# Aplicação Web com Spring Boot, Java 8, MySql e Thymeleaf
-
 [![Build Status](https://travis-ci.org/jeanLuizInsight/desafio-conquer.svg?branch=main)](https://travis-ci.org/jeanLuizInsight/desafio-conquer)
 
-Descrição: Aplicação Web utilizada para desafio Full Stack Developer da Conquer.
+# Aplicação Web para consulta ao Portal da Transparencia do Governo Federal
 
+Descrição: Aplicação Web utilizada para desafio Full Stack Developer da Conquer.
 
 ## 💻 Desafio
 Projeto utilizado para o usuário realizar consulta na API REST do Portal da Transparência do Governo Federal, informando um intervalo de meses, em então obter os dados de pagamento efetuados via cartão, mostrando o saldo por municipio.
