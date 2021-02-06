@@ -1,10 +1,62 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layoutPadrao}">
 
-</body>
+<head>
+<title>Consulta - Gastos de pagamento por cartão</title>
+<link rel="stylesheet" th:href="@{/vendors/datepicker/css/datepicker.css}"/>
+</head>
+
+<section layout:fragment="conteudo">
+	<div class="inner cover">
+		<h1 class="cover-heading">Gastos de pagamento via cartão por município</h1>
+		<div class="lead">
+			<form class="form-horizontal" method="POST"
+				th:object="${gastosPagamentoCartaoParamVO}"
+				th:action="@{/gastospagamentocartao/consultar}">
+				<div class="form-group">
+					<label for="mesExtratoInicio" class="col-sm-2 control-label">
+						Mês de extrato inicial
+					</label>
+					<div class="col-sm-12">
+						<input class="form-control" type="text" th:field="*{mesExtratoInicio}" autocomplete="off" />
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="mesExtratoFim" class="col-sm-2 control-label">
+						Mês de extrato final
+					</label>
+					<div class="col-sm-12">
+						<input class="form-control" type="text" th:field="*{mesExtratoFim}" autocomplete="off" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12">
+						<button class="btn btn-default" type="submit">Consultar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+<th:block layout:fragment="javascript-extra">
+	<script th:src="@{/vendors/datepicker/js/bootstrap-datepicker.js}"></script>
+	<script type="text/javascript">
+		$(function() {
+			$("#mesExtratoInicio").datepicker( {
+			    format: "MM/yyyy",
+			    startView: "months", 
+			    minViewMode: "months"
+			});
+			
+			$("#mesExtratoFim").datepicker( {
+			    format: "MM/yyyy",
+			    startView: "months", 
+			    minViewMode: "months"
+			});
+		});
+	</script>
+</th:block>
 </html>

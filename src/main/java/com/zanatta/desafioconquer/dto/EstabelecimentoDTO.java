@@ -1,6 +1,6 @@
 package com.zanatta.desafioconquer.dto;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,7 +16,7 @@ public class EstabelecimentoDTO {
 	@JsonProperty("cnae") private CnaeDTO cnae;
 	@JsonProperty("codigoFormatado") private String codigoFormatado;
 	@JsonProperty("complementoEndereco") private String complementoEndereco;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "ddMMyyyy") @JsonProperty("dataAbertura") private LocalDateTime dataAbertura;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") @JsonProperty("dataAbertura") private Date dataAbertura;
 	@JsonProperty("descricaoLogradouro") private String descricaoLogradouro;
 	@JsonProperty("enderecoEletronico") private String enderecoEletronico;
 	@JsonProperty("localidadePessoa") private String localidadePessoa;
@@ -45,7 +45,7 @@ public class EstabelecimentoDTO {
 		return this.complementoEndereco;
 	}
 
-	public LocalDateTime getDataAbertura() {
+	public Date getDataAbertura() {
 		return this.dataAbertura;
 	}
 
@@ -121,7 +121,7 @@ public class EstabelecimentoDTO {
 		this.complementoEndereco = complementoEndereco;
 	}
 
-	public void setDataAbertura(final LocalDateTime dataAbertura) {
+	public void setDataAbertura(final Date dataAbertura) {
 		this.dataAbertura = dataAbertura;
 	}
 
