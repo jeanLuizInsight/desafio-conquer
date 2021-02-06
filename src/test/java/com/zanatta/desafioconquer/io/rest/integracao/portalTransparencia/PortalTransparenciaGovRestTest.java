@@ -9,15 +9,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.client.response.MockRestResponseCreators;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zanatta.desafioconquer.dto.TransacaoDTO;
@@ -29,10 +34,11 @@ import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
  * @since 05/02/2021
  */
 @RunWith(SpringRunner.class)
+@ContextConfiguration(classes = SpringJUnitConfig.class)
 public class PortalTransparenciaGovRestTest {
 
 	@Autowired private PortalTransparenciaGovRest api;
-	@Autowired RestTemplate restTemplate;
+	@Autowired private RestTemplate restTemplate;
 	private MockRestServiceServer mockServer;
 	private final ObjectMapper mapper = new ObjectMapper();
 
@@ -46,10 +52,12 @@ public class PortalTransparenciaGovRestTest {
 		// cenário
 		final List<TransacaoDTO> transacaoList = new ArrayList<>();
 		final GastosPagamentoCartaoParamVO vo = new GastosPagamentoCartaoParamVO();
-		vo.setDataTransacaoInicio("01/02/2021");
-		vo.setDataTransacaoFim("05/02/2021");
-		this.mockServer.expect(ExpectedCount.once(), MockRestRequestMatchers.requestTo(new URI(
-				"http://www.portaltransparencia.gov.br/api-de-dados/cartoes")))
+		vo.setMesExtratoInicio("01/2020");
+		vo.setMesExtratoFim("12/2020");
+		final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl("http://www.portaltransparencia.gov.br/api-de-dados/cartoes")
+				.queryParam("mesExtratoInicio", vo.getMesExtratoInicio())
+				.queryParam("mesExtratoFim", vo.getMesExtratoFim());
+		this.mockServer.expect(ExpectedCount.once(), MockRestRequestMatchers.requestTo(builder.toUriString()))
 				.andExpect(MockRestRequestMatchers.method(HttpMethod.GET))
 				.andRespond(MockRestResponseCreators.withStatus(HttpStatus.OK)
 						.contentType(MediaType.APPLICATION_JSON)
