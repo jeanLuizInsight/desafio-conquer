@@ -6,7 +6,6 @@
 
 <head>
 <title>Consulta - Gastos de pagamento por cartão</title>
-<link rel="stylesheet" th:href="@{/vendors/datepicker/css/datepicker.css}"/>
 </head>
 
 <section layout:fragment="conteudo">
@@ -42,17 +41,18 @@
 	</div>
 </section>
 <th:block layout:fragment="javascript-extra">
-	<script th:src="@{/vendors/datepicker/js/bootstrap-datepicker.js}"></script>
 	<script type="text/javascript">
 		$(function() {
 			$("#mesExtratoInicio").datepicker( {
-			    format: "MM/yyyy",
+			    format: "mm/yyyy",
+			    autoclose: true,
 			    startView: "months", 
 			    minViewMode: "months"
 			});
 			
 			$("#mesExtratoFim").datepicker( {
-			    format: "MM/yyyy",
+			    format: "mm/yyyy",
+			    autoclose: true,
 			    startView: "months", 
 			    minViewMode: "months"
 			});

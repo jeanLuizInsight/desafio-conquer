@@ -1,10 +1,6 @@
 package com.zanatta.desafioconquer.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -15,16 +11,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @XmlRootElement
 public class TransacaoDTO {
 
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy") @JsonProperty("dataTransacao") private LocalDate dataTransacao;
+	@JsonProperty("dataTransacao") private String dataTransacao;
 	@JsonProperty("estabelecimento") private EstabelecimentoDTO estabelecimento;
-	@JsonProperty("id") private float id;
+	@JsonProperty("id") private String id;
 	@JsonProperty("mesExtrato") private String mesExtrato;
 	@JsonProperty("portador") private PortadorDTO portador;
 	@JsonProperty("tipoCartao") private TipoCartaoDTO tipoCartao;
 	@JsonProperty("unidadeGestora") private UnidadeGestoraDTO unidadeGestora;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern = "#,##0.00") @JsonProperty("valorTransacao") private BigDecimal valorTransacao;
+	@JsonProperty("valorTransacao") private String valorTransacao;
 
-	public LocalDate getDataTransacao() {
+	public String getDataTransacao() {
 		return this.dataTransacao;
 	}
 
@@ -32,7 +28,7 @@ public class TransacaoDTO {
 		return this.estabelecimento;
 	}
 
-	public float getId() {
+	public String getId() {
 		return this.id;
 	}
 
@@ -52,11 +48,11 @@ public class TransacaoDTO {
 		return this.unidadeGestora;
 	}
 
-	public BigDecimal getValorTransacao() {
+	public String getValorTransacao() {
 		return this.valorTransacao;
 	}
 
-	public void setDataTransacao(final LocalDate dataTransacao) {
+	public void setDataTransacao(final String dataTransacao) {
 		this.dataTransacao = dataTransacao;
 	}
 
@@ -64,7 +60,7 @@ public class TransacaoDTO {
 		this.estabelecimento = estabelecimento;
 	}
 
-	public void setId(final float id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -84,7 +80,7 @@ public class TransacaoDTO {
 		this.unidadeGestora = unidadeGestora;
 	}
 
-	public void setValorTransacao(final BigDecimal valorTransacao) {
+	public void setValorTransacao(final String valorTransacao) {
 		this.valorTransacao = valorTransacao;
 	}
 

@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @XmlRootElement
 public class TipoCartaoDTO {
 
-	@JsonProperty("codigo") private Long codigo;
+	@JsonProperty("codigo") private String codigo;
 	@JsonProperty("descricao") private String descricao;
 	@JsonProperty("id") private float id;
 
-	public Long getCodigo() {
+	public String getCodigo() {
 		return this.codigo;
 	}
 
@@ -27,7 +27,7 @@ public class TipoCartaoDTO {
 		return this.id;
 	}
 
-	public void setCodigo(final Long codigo) {
+	public void setCodigo(final String codigo) {
 		this.codigo = codigo;
 	}
 

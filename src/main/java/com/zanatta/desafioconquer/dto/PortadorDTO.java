@@ -12,7 +12,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class PortadorDTO {
 
 	@JsonProperty("codigoFormatado") private String codigoFormatado;
-	@JsonProperty("cnnomeae") private String nome;
+	@JsonProperty("nome") private String nome;
 
 	public String getCodigoFormatado() {
 		return this.codigoFormatado;
