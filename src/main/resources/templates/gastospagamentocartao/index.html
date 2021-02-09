@@ -14,9 +14,7 @@
 		<h1 class="cover-heading">Gastos de pagamento via cartão por município</h1>
 		<br><br>
 		<div class="lead">
-			<form class="form-horizontal" id="form-consulta"
-				th:action
-				th:object="${gastosPagamentoCartaoParamVO}">
+			<form class="form-horizontal" id="form-consulta" th:object="${gastosPagamentoCartaoParamVO}">
 				<div align="center">
 					<div class="input-group">
 						<label class="control-label" for="div-mes-inicial">Mês de extrato inicial:</label>
@@ -71,29 +69,31 @@
 				minViewMode : 'months',
 				format:'MM/yyyy'
 			});
+			
+			function btnImprimirRelatorio() {
+				loading();
+				var data = $('#form-consulta').serialize();
+				$.ajax({
+					type: 'GET',
+					url: 'gastospagamentocartao/consultar',
+					data: data,
+					success: function(blob) {
+						endLoading();
+						loading();
+						// aqui implementar regra pra gravar arquivo pro usuário...
+						
+					},
+					error:function(e) {
+						endLoading();
+						swal("Ops!", e.responseText, "error");
+					}
+				}).done(function () {
+		            //trigger any doc ready scripts we may have just loaded
+		            jQuery.ready();
+		        });;
+				return false;
+			}
 		});
-		
-		function btnImprimirRelatorio() {
-			loading('Baixando arquivo!');
-			$.ajax({
-				type: 'GET',
-				url: 'gastospagamentocartao/consultar',
-				data: $('#form-consulta').serialize(),
-				dataType: "binary",
-				timeout: 7200000,
-				processData: false,
-				success: function(blob) {
-					endLoading();
-					loading('Convertendo o arquivo');
-					// aqui implementar regra pra gravar arquivo pro usuário...
-					
-				},
-				error:function(e) {
-					endLoading();
-					swal("Ops!", e, "error");
-				}
-			});
-		}
 	</script>
 </th:block>
 </html>
