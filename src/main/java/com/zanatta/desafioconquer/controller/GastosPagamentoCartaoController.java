@@ -1,22 +1,19 @@
 package com.zanatta.desafioconquer.controller;
 
-import java.util.List;
-
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.zanatta.desafioconquer.dto.TransacaoDTO;
+import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
 import com.zanatta.desafioconquer.io.rest.integracao.portalTransparencia.PortalTransparenciaGovRest;
+import com.zanatta.desafioconquer.util.MessageUtil;
 import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 
 /**
@@ -27,24 +24,30 @@ import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 @Controller
 @RequestMapping("/gastospagamentocartao")
 public class GastosPagamentoCartaoController {
-	
-	@Autowired PortalTransparenciaGovRest apiRest;
+
+	@Autowired private MessageUtil messageUtil;
+	@Autowired private PortalTransparenciaGovRest apiRest;
 
 	@GetMapping()
-	public ModelAndView nova(GastosPagamentoCartaoParamVO gastosPagamentoCartaoParamVO) {
-		ModelAndView mv = new ModelAndView("gastospagamentocartao/index");
+	public ModelAndView nova(final GastosPagamentoCartaoParamVO gastosPagamentoCartaoParamVO) {
+		final ModelAndView mv = new ModelAndView("gastospagamentocartao/index");
 		return mv;
 	}
-	
-	@PostMapping("/consultar")
-	public ModelAndView gerarConsulta(@Valid GastosPagamentoCartaoParamVO gastosPagamentoCartaoParamVO,  BindingResult result) {
-		ModelAndView mv = this.nova(gastosPagamentoCartaoParamVO);
+
+	@GetMapping("/consultar")
+	@ResponseBody
+	public ResponseEntity<String> gerarConsulta(final HttpServletRequest request,
+			@Valid final GastosPagamentoCartaoParamVO gastosPagamentoCartaoParamVO, final BindingResult result) {
 		if (result.hasErrors()) {
-			return mv;
+			return new ResponseEntity<>(this.messageUtil.getMessageErrorBindResult(result), HttpStatus.BAD_GATEWAY);
 		}
-		List<TransacaoDTO> dados = apiRest.getGastosPorMeioDeCartaoDePagamento(gastosPagamentoCartaoParamVO);
-		mv.addObject(dados);
-		return mv;
+		try {
+			this.apiRest.getGastosPorMeioDeCartaoDePagamento(gastosPagamentoCartaoParamVO);
+		} catch (final ApiDadosCartoesException e) {
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_GATEWAY);
+		}
+
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
-	
+
 }

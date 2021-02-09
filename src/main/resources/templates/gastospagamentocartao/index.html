@@ -10,30 +10,43 @@
 
 <section layout:fragment="conteudo">
 	<div class="inner cover">
+		<br><br>
 		<h1 class="cover-heading">Gastos de pagamento via cartão por município</h1>
+		<br><br>
 		<div class="lead">
-			<form class="form-horizontal" method="POST"
-				th:object="${gastosPagamentoCartaoParamVO}"
-				th:action="@{/gastospagamentocartao/consultar}">
-				<div class="form-group">
-					<label for="mesExtratoInicio" class="col-sm-2 control-label">
-						Mês de extrato inicial
-					</label>
-					<div class="col-sm-12">
-						<input class="form-control" type="text" th:field="*{mesExtratoInicio}" autocomplete="off" />
+			<form class="form-horizontal" id="form-consulta"
+				th:action
+				th:object="${gastosPagamentoCartaoParamVO}">
+				<div align="center">
+					<div class="input-group">
+						<label class="control-label" for="div-mes-inicial">Mês de extrato inicial:</label>
+						<br>
+						<div id="div-mes-inicial" class="input-group date">
+							<input class="form-control input-sm" size="15" tabindex="40" data-format="MM/yyyy" th:field="*{mesExtratoInicio}" readonly="readonly">
+							<span class="add-on">
+								<span data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"
+									class="glyphicon-calendar glyphicon">
+								</span>
+							</span>
+						</div>
+					</div>
+					<div class="input-group">
+						<label class="control-label" for="div-mes-final">Mês de extrato Final:</label>
+						<br>
+						<div id="div-mes-final" class="input-group date">
+							<input class="form-control input-sm" size="15" tabindex="40" data-format="MM/yyyy" th:field="*{mesExtratoFim}" readonly="readonly">
+							<span class="add-on">
+								<span data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"
+									class="glyphicon-calendar glyphicon">
+								</span>
+							</span>
+						</div>
 					</div>
 				</div>
-				<div class="form-group">
-					<label for="mesExtratoFim" class="col-sm-2 control-label">
-						Mês de extrato final
-					</label>
-					<div class="col-sm-12">
-						<input class="form-control" type="text" th:field="*{mesExtratoFim}" autocomplete="off" />
-					</div>
-				</div>
+				<br><br>
 				<div class="form-group">
 					<div class="col-sm-12">
-						<button class="btn btn-default" type="submit">Consultar</button>
+						<button class="btn btn-default" id="btn-consultar">Consultar</button>
 					</div>
 				</div>
 			</form>
@@ -43,20 +56,44 @@
 <th:block layout:fragment="javascript-extra">
 	<script type="text/javascript">
 		$(function() {
-			$("#mesExtratoInicio").datepicker( {
-			    format: "mm/yyyy",
-			    autoclose: true,
-			    startView: "months", 
-			    minViewMode: "months"
+			$('#btn-consultar').click(btnImprimirRelatorio);
+			$('#div-mes-inicial').datetimepicker({
+				maskInput : true,
+				language : 'pt-BR',
+				viewMode : 'years',
+				minViewMode : 'months',
+				format:'MM/yyyy'
 			});
-			
-			$("#mesExtratoFim").datepicker( {
-			    format: "mm/yyyy",
-			    autoclose: true,
-			    startView: "months", 
-			    minViewMode: "months"
+			$('#div-mes-final').datetimepicker({
+				maskInput : true,
+				language : 'pt-BR',
+				viewMode : 'years',
+				minViewMode : 'months',
+				format:'MM/yyyy'
 			});
 		});
+		
+		function btnImprimirRelatorio() {
+			loading('Baixando arquivo!');
+			$.ajax({
+				type: 'GET',
+				url: 'gastospagamentocartao/consultar',
+				data: $('#form-consulta').serialize(),
+				dataType: "binary",
+				timeout: 7200000,
+				processData: false,
+				success: function(blob) {
+					endLoading();
+					loading('Convertendo o arquivo');
+					// aqui implementar regra pra gravar arquivo pro usuário...
+					
+				},
+				error:function(e) {
+					endLoading();
+					swal("Ops!", e, "error");
+				}
+			});
+		}
 	</script>
 </th:block>
 </html>

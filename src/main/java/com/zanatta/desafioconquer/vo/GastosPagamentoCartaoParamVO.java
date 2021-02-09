@@ -1,6 +1,8 @@
 package com.zanatta.desafioconquer.vo;
 
 import java.math.BigDecimal;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 /**
  * VO para filtros de tela de consulta à API.
@@ -21,10 +23,14 @@ public class GastosPagamentoCartaoParamVO {
 	private BigDecimal valorAte;
 	private Integer pagina;
 
+	@NotEmpty(message = "{gastosPagamentoCartaoParamVO.mesExtratoInicio.empty}")
+	@Pattern(regexp = "^(0[1-9]{1}|1[0-2]{1})/\\d{4}$", message = "{gastosPagamentoCartaoParamVO.mesExtratoInicio.pattern}")
 	public String getMesExtratoInicio() {
 		return this.mesExtratoInicio;
 	}
 
+	@NotEmpty(message = "{gastosPagamentoCartaoParamVO.mesExtratoFim.empty}")
+	@Pattern(regexp = "^(0[1-9]{1}|1[0-2]{1})/\\d{4}$", message = "{gastosPagamentoCartaoParamVO.mesExtratoFim.pattern}")
 	public String getMesExtratoFim() {
 		return this.mesExtratoFim;
 	}

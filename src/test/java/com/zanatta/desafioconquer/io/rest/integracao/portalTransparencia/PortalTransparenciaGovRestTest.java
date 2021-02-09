@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -26,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.zanatta.desafioconquer.dto.TransacaoDTO;
+import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
 import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 
 /**
@@ -34,7 +33,6 @@ import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
  * @since 05/02/2021
  */
 @RunWith(SpringRunner.class)
-@ContextConfiguration(classes = SpringJUnitConfig.class)
 public class PortalTransparenciaGovRestTest {
 
 	@Autowired private PortalTransparenciaGovRest api;
@@ -64,7 +62,8 @@ public class PortalTransparenciaGovRestTest {
 	}
 
 	// @Test
-	public void deveBuscarGastosPorMeioDeCartaoDePagamentoParaUmIntervaloDeDatas() throws JsonProcessingException, URISyntaxException {
+	public void deveBuscarGastosPorMeioDeCartaoDePagamentoParaUmIntervaloDeDatas() throws JsonProcessingException, URISyntaxException,
+			ApiDadosCartoesException {
 		// cenário
 		final List<TransacaoDTO> transacaoList = new ArrayList<>();
 		final GastosPagamentoCartaoParamVO vo = new GastosPagamentoCartaoParamVO();

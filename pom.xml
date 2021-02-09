@@ -16,6 +16,7 @@
 	<description>Aplicação base para realizar consulta na API do portal transparência, exportar e persistir dados.</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<json.version>20201115</json.version>
 	</properties>
 	<dependencies>
 		<!-- Core`s -->
@@ -78,6 +79,11 @@
 			<groupId>com.fasterxml.jackson.datatype</groupId>
 			<artifactId>jackson-datatype-jdk8</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>${json.version}</version>
+		</dependency>
 		<!-- JUnit -->
 		<dependency>
     		<groupId>junit</groupId>
@@ -89,7 +95,6 @@
 		    <groupId>org.apache.commons</groupId>
 		    <artifactId>commons-lang3</artifactId>
 		</dependency>
-		
 	</dependencies>
 
 	<build>
