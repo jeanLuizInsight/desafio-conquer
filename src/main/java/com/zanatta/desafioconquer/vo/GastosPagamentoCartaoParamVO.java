@@ -4,10 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
-
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Pattern;
-
 import com.zanatta.desafioconquer.model.GastosPagamentoCartaoParam;
 
 /**
@@ -30,51 +27,49 @@ public class GastosPagamentoCartaoParamVO {
 	private Integer pagina;
 
 	@NotEmpty(message = "{gastosPagamentoCartaoParamVO.mesExtratoInicio.empty}")
-	@Pattern(regexp = "^(0[1-9]{1}|1[0-2]{1})/\\d{4}$", message = "{gastosPagamentoCartaoParamVO.mesExtratoInicio.pattern}")
 	public String getMesExtratoInicio() {
-		return mesExtratoInicio;
+		return this.mesExtratoInicio;
 	}
 
 	@NotEmpty(message = "{gastosPagamentoCartaoParamVO.mesExtratoFim.empty}")
-	@Pattern(regexp = "^(0[1-9]{1}|1[0-2]{1})/\\d{4}$", message = "{gastosPagamentoCartaoParamVO.mesExtratoFim.pattern}")
 	public String getMesExtratoFim() {
-		return mesExtratoFim;
+		return this.mesExtratoFim;
 	}
 
 	public LocalDate getDataTransacaoInicio() {
-		return dataTransacaoInicio;
+		return this.dataTransacaoInicio;
 	}
 
 	public LocalDate getDataTransacaoFim() {
-		return dataTransacaoFim;
+		return this.dataTransacaoFim;
 	}
 
 	public Integer getTipoCartao() {
-		return tipoCartao;
+		return this.tipoCartao;
 	}
 
 	public String getCodigoOrgao() {
-		return codigoOrgao;
+		return this.codigoOrgao;
 	}
 
 	public String getCpfPortador() {
-		return cpfPortador;
+		return this.cpfPortador;
 	}
 
 	public String getCpfCnpjFavorecido() {
-		return cpfCnpjFavorecido;
+		return this.cpfCnpjFavorecido;
 	}
 
 	public BigDecimal getValorDe() {
-		return valorDe;
+		return this.valorDe;
 	}
 
 	public BigDecimal getValorAte() {
-		return valorAte;
+		return this.valorAte;
 	}
 
 	public Integer getPagina() {
-		return pagina;
+		return this.pagina;
 	}
 
 	public void setMesExtratoInicio(final String mesExtratoInicio) {
@@ -121,12 +116,12 @@ public class GastosPagamentoCartaoParamVO {
 		this.pagina = pagina;
 	}
 
-	public static GastosPagamentoCartaoParam buildGastosPagamentoCartaoParam(GastosPagamentoCartaoParamVO vo) {
-		GastosPagamentoCartaoParam param = new GastosPagamentoCartaoParam();
+	public static GastosPagamentoCartaoParam buildGastosPagamentoCartaoParam(final GastosPagamentoCartaoParamVO vo) {
+		final GastosPagamentoCartaoParam param = new GastosPagamentoCartaoParam();
 		param.setCodigoOrgao(vo.getCodigoOrgao());
 		param.setCpfCnpjFavorecido(vo.getCpfCnpjFavorecido());
 		param.setCpfPortador(vo.getCpfPortador());
-		if (vo.getDataTransacaoFim() != null)  {
+		if (vo.getDataTransacaoFim() != null) {
 			param.setDataTransacaoFim(Date.from(vo.getDataTransacaoFim().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 		}
 		if (vo.getDataTransacaoInicio() != null) {

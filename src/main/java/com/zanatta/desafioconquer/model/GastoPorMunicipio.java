@@ -1,6 +1,9 @@
 package com.zanatta.desafioconquer.model;
 
+import java.lang.reflect.Field;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
 import org.hibernate.annotations.BatchSize;
 
@@ -19,7 +23,7 @@ import org.hibernate.annotations.BatchSize;
  * @since 09/02/2021
  */
 @Entity
-@Table(name = "GOSTO_POR_MUNICIPIO")
+@Table(name = "GASTO_POR_MUNICIPIO")
 @BatchSize(size = 100)
 public class GastoPorMunicipio {
 
@@ -116,6 +120,26 @@ public class GastoPorMunicipio {
 
 	public void setVersion(final Integer version) {
 		this.version = version;
+	}
+
+	@Transient
+	public static String[] getFieldsToCsv() {
+		final List<Field> fields = Arrays.asList(GastoPorMunicipio.class.getDeclaredFields());
+		return fields.stream()
+				.filter(fd -> !"codigo".equals(fd.getName())
+						&& !"version".equals(fd.getName())
+						&& !"gastosPagamentoCartaoParam".equals(fd.getName()))
+				.map(Field::getName).toArray(String[]::new);
+	}
+
+	@Transient
+	public static List<Object> getValuesToCsv(final GastoPorMunicipio gpm) {
+		return Arrays.asList(gpm.getCodigoIBGE(),
+				gpm.getNomeIBGE(),
+				gpm.getPais(),
+				gpm.getUfNome(),
+				gpm.getUfSigla(),
+				gpm.getValorTotal());
 	}
 
 }

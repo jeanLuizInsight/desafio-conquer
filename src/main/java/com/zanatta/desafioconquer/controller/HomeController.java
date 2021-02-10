@@ -2,7 +2,6 @@ package com.zanatta.desafioconquer.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,7 +16,7 @@ public class HomeController {
 
 	@GetMapping()
 	public ModelAndView nova() {
-		ModelAndView mv = new ModelAndView("home/index");
+		final ModelAndView mv = new ModelAndView("home/index");
 		return mv;
 	}
 }

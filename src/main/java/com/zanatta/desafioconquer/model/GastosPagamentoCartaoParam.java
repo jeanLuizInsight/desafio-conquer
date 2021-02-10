@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @since 09/02/2021
  */
 @Entity
-@Table(name = "GOSTOS_PAGAMENTO_CARTAO_PARAM")
+@Table(name = "GASTOS_PAGAMENTO_CARTAO_PARAM")
 @BatchSize(size = 100)
 public class GastosPagamentoCartaoParam {
 

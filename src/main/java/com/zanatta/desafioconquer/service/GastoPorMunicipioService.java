@@ -5,11 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.zanatta.desafioconquer.dto.MunicipioDTO;
 import com.zanatta.desafioconquer.dto.TransacaoDTO;
 import com.zanatta.desafioconquer.model.GastoPorMunicipio;
@@ -29,7 +27,7 @@ public class GastoPorMunicipioService {
 	@Autowired private GastosPagamentoCartaoParamRepository gastosPagamentoCartaoParamRepository;
 
 	@Transactional
-	public List<GastoPorMunicipio> saveGastoPorMunicipio(final List<TransacaoDTO> dadosApi, GastosPagamentoCartaoParam param) {
+	public List<GastoPorMunicipio> saveGastoPorMunicipio(final List<TransacaoDTO> dadosApi, final GastosPagamentoCartaoParam param) {
 		final List<GastoPorMunicipio> dadosPersistencia = new ArrayList<>();
 
 		// mapeando as transacoes por municipio
@@ -37,10 +35,10 @@ public class GastoPorMunicipioService {
 				.collect(Collectors.groupingBy(dto -> dto.getEstabelecimento().getMunicipio()));
 		map.forEach((k, v) -> {
 			// totalizando o valor das transação para o município
-			BigDecimal valorPorMunicipio = v.stream()
-	                .map(x -> x.getValorTransacaoNumber())
-	                .reduce(BigDecimal.ZERO, BigDecimal::add);
-			GastoPorMunicipio gpm = new GastoPorMunicipio();
+			final BigDecimal valorPorMunicipio = v.stream()
+					.map(TransacaoDTO::getValorTransacaoNumber)
+					.reduce(BigDecimal.ZERO, BigDecimal::add);
+			final GastoPorMunicipio gpm = new GastoPorMunicipio();
 			gpm.setGastosPagamentoCartaoParam(param);
 			gpm.setCodigoIBGE(k.getCodigoIBGE());
 			gpm.setNomeIBGE(k.getNomeIBGE());
@@ -50,8 +48,8 @@ public class GastoPorMunicipioService {
 			gpm.setValorTotal(valorPorMunicipio);
 			dadosPersistencia.add(gpm);
 		});
-		gastosPagamentoCartaoParamRepository.save(param);
-		gastoPorMunicipioRepository.saveAll(dadosPersistencia);
+		this.gastosPagamentoCartaoParamRepository.save(param);
+		this.gastoPorMunicipioRepository.saveAll(dadosPersistencia);
 		return dadosPersistencia;
 	}
 }

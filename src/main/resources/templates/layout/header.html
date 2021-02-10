@@ -8,8 +8,8 @@
 			<img alt="Desafio Conquer" th:src="@{/images/logo.png}"/>
 			<nav>
 				<ul class="nav masthead-nav">
-					<li class="active"><a th:href="@{/}">Home</a></li>
-					<li><a th:href="@{/gastospagamentocartao}">Consulta</a></li>
+					<li th:classappend="${#request.getServletPath() == '/' ? 'active':''}"><a th:href="@{/}">Home</a></li>
+					<li th:classappend="${#request.getServletPath() == '/gastospagamentocartao' ? 'active':''}"><a th:href="@{/gastospagamentocartao}">Consulta</a></li>
 				</ul>
 			</nav>
 		</div>

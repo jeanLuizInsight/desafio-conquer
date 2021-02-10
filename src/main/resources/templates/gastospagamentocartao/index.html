@@ -77,17 +77,19 @@
 					type: 'GET',
 					url: 'gastospagamentocartao/consultar',
 					data: data,
-					success: function(blob) {
+					success: function(data) {
 						endLoading();
-						// aqui implementar regra pra gravar arquivo pro usuário...
-						
+						var blob = new Blob([data]);
+					    var link = document.createElement('a');
+					    link.href = window.URL.createObjectURL(blob);
+					    link.download = "gastos-por-municipio.csv";
+					    link.click();
 					},
 					error:function(e) {
 						endLoading();
 						swal("Ops!", e.responseText, "error");
 					}
 				}).done(function () {
-		            //trigger any doc ready scripts we may have just loaded
 		            jQuery.ready();
 		        });;
 				return false;

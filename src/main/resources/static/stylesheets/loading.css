@@ -33,7 +33,7 @@
   width: 38px;
   height: 37px;
   margin-left:35%;
-  background-image: url(../images/logo2.jpg);
+  background-image: url(../images/logo2.png);
   -webkit-animation: rotateplane 0.9s infinite ease-in-out;
   animation: rotateplane 0.9s infinite ease-in-out;
 }
