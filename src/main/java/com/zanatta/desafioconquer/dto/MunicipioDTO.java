@@ -1,6 +1,7 @@
 package com.zanatta.desafioconquer.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -17,19 +18,19 @@ public class MunicipioDTO {
 	@JsonProperty("uf") private UfDTO uf;
 
 	public String getCodigoIBGE() {
-		return this.codigoIBGE;
+		return codigoIBGE;
 	}
 
 	public String getNomeIBGE() {
-		return this.nomeIBGE;
+		return nomeIBGE;
 	}
 
 	public String getPais() {
-		return this.pais;
+		return pais;
 	}
 
 	public UfDTO getUf() {
-		return this.uf;
+		return uf;
 	}
 
 	public void setCodigoIBGE(final String codigoIBGE) {
@@ -48,4 +49,28 @@ public class MunicipioDTO {
 		this.uf = uf;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((codigoIBGE == null) ? 0 : codigoIBGE.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		MunicipioDTO other = (MunicipioDTO) obj;
+		if (codigoIBGE == null) {
+			if (other.codigoIBGE != null)
+				return false;
+		} else if (!codigoIBGE.equals(other.codigoIBGE))
+			return false;
+		return true;
+	}
 }

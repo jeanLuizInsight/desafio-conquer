@@ -35,11 +35,11 @@ public class GastoPorMunicipioService {
 		// mapeando as transacoes por municipio
 		final Map<MunicipioDTO, List<TransacaoDTO>> map = dadosApi.stream()
 				.collect(Collectors.groupingBy(dto -> dto.getEstabelecimento().getMunicipio()));
-		BigDecimal valorPorMunicipio = BigDecimal.ZERO;
 		map.forEach((k, v) -> {
-			v.forEach(dto -> {
-				valorPorMunicipio.add(dto.getValorTransacaoNumber());
-			});
+			// totalizando o valor das transação para o município
+			BigDecimal valorPorMunicipio = v.stream()
+	                .map(x -> x.getValorTransacaoNumber())
+	                .reduce(BigDecimal.ZERO, BigDecimal::add);
 			GastoPorMunicipio gpm = new GastoPorMunicipio();
 			gpm.setGastosPagamentoCartaoParam(param);
 			gpm.setCodigoIBGE(k.getCodigoIBGE());
