@@ -18,19 +18,19 @@ public class MunicipioDTO {
 	@JsonProperty("uf") private UfDTO uf;
 
 	public String getCodigoIBGE() {
-		return codigoIBGE;
+		return this.codigoIBGE;
 	}
 
 	public String getNomeIBGE() {
-		return nomeIBGE;
+		return this.nomeIBGE;
 	}
 
 	public String getPais() {
-		return pais;
+		return this.pais;
 	}
 
 	public UfDTO getUf() {
-		return uf;
+		return this.uf;
 	}
 
 	public void setCodigoIBGE(final String codigoIBGE) {
@@ -53,24 +53,29 @@ public class MunicipioDTO {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((codigoIBGE == null) ? 0 : codigoIBGE.hashCode());
+		result = prime * result + ((this.codigoIBGE == null) ? 0 : this.codigoIBGE.hashCode());
 		return result;
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
+	public boolean equals(final Object obj) {
+		if (this == obj) {
 			return true;
-		if (obj == null)
+		}
+		if (obj == null) {
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (this.getClass() != obj.getClass()) {
 			return false;
-		MunicipioDTO other = (MunicipioDTO) obj;
-		if (codigoIBGE == null) {
-			if (other.codigoIBGE != null)
+		}
+		final MunicipioDTO other = (MunicipioDTO) obj;
+		if (this.codigoIBGE == null) {
+			if (other.codigoIBGE != null) {
 				return false;
-		} else if (!codigoIBGE.equals(other.codigoIBGE))
+			}
+		} else if (!this.codigoIBGE.equals(other.codigoIBGE)) {
 			return false;
+		}
 		return true;
 	}
 }

@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
 import com.zanatta.desafioconquer.dto.TransacaoDTO;
 import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
 import com.zanatta.desafioconquer.io.rest.integracao.portalTransparencia.PortalTransparenciaGovRest;

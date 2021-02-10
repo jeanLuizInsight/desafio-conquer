@@ -46,9 +46,9 @@ public class PortalTransparenciaGovRest {
 			final HttpHeaders headers = new HttpHeaders();
 			headers.setContentType(MediaType.APPLICATION_JSON);
 			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-			headers.add("chave-api-dados", chaveDeAcesso);
+			headers.add("chave-api-dados", this.chaveDeAcesso);
 			final HttpEntity<?> entity = new HttpEntity<>(headers);
-			final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(endPoint)
+			final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(this.endPoint)
 					.queryParam("mesExtratoInicio", vo.getMesExtratoInicio())
 					.queryParam("mesExtratoFim", vo.getMesExtratoFim())
 					.queryParam("dataTransacaoInicio", vo.getDataTransacaoInicio())
@@ -60,7 +60,7 @@ public class PortalTransparenciaGovRest {
 					.queryParam("valorDe", vo.getValorDe())
 					.queryParam("valorAte", vo.getValorAte())
 					.queryParam("pagina", vo.getPagina());
-			final ResponseEntity<String> getForEntity = restTemplate.exchange(builder.toUriString(),
+			final ResponseEntity<String> getForEntity = this.restTemplate.exchange(builder.toUriString(),
 					HttpMethod.GET,
 					entity,
 					String.class);
@@ -75,13 +75,13 @@ public class PortalTransparenciaGovRest {
 				throw new ApiDadosCartoesException(msg);
 			}
 		} catch (final JsonProcessingException e) {
-			throw new ApiDadosCartoesException(messageUtil.getText("error.api.jsonFormat"));
+			throw new ApiDadosCartoesException(this.messageUtil.getText("error.api.jsonFormat"));
 		} catch (final HttpClientErrorException e) {
 			final JSONObject obj = new JSONObject(e.getResponseBodyAsString());
 			final String msg = obj.getString("Error API");
 			throw new ApiDadosCartoesException(msg);
 		} catch (final ResourceAccessException e) {
-			throw new ApiDadosCartoesException(messageUtil.getText("error.api.response", e.getMessage()));
+			throw new ApiDadosCartoesException(this.messageUtil.getText("error.api.response", e.getMessage()));
 		}
 		return retorno;
 	}

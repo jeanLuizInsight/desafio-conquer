@@ -3,6 +3,7 @@ package com.zanatta.desafioconquer.model;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Version;
+
 import org.hibernate.annotations.BatchSize;
 import org.springframework.format.annotation.DateTimeFormat;
 

@@ -28,35 +28,35 @@ public class TransacaoDTO {
 	@JsonProperty("valorTransacao") private String valorTransacao;
 
 	public String getDataTransacao() {
-		return dataTransacao;
+		return this.dataTransacao;
 	}
 
 	public EstabelecimentoDTO getEstabelecimento() {
-		return estabelecimento;
+		return this.estabelecimento;
 	}
 
 	public String getId() {
-		return id;
+		return this.id;
 	}
 
 	public String getMesExtrato() {
-		return mesExtrato;
+		return this.mesExtrato;
 	}
 
 	public PortadorDTO getPortador() {
-		return portador;
+		return this.portador;
 	}
 
 	public TipoCartaoDTO getTipoCartao() {
-		return tipoCartao;
+		return this.tipoCartao;
 	}
 
 	public UnidadeGestoraDTO getUnidadeGestora() {
-		return unidadeGestora;
+		return this.unidadeGestora;
 	}
 
 	public String getValorTransacao() {
-		return valorTransacao;
+		return this.valorTransacao;
 	}
 
 	public void setDataTransacao(final String dataTransacao) {
@@ -93,10 +93,10 @@ public class TransacaoDTO {
 
 	@JsonIgnore
 	public BigDecimal getValorTransacaoNumber() {
-		if (StringUtils.isNotEmpty(valorTransacao)) {
-			String valorTmp = valorTransacao.replace(".", "");
+		if (StringUtils.isNotEmpty(this.valorTransacao)) {
+			String valorTmp = this.valorTransacao.replace(".", "");
 			valorTmp = valorTmp.replace(",", ".");
-			BigDecimal number = new BigDecimal(valorTmp);
+			final BigDecimal number = new BigDecimal(valorTmp);
 			number.setScale(2, RoundingMode.HALF_UP);
 			return number;
 		}
