@@ -2,6 +2,7 @@ package com.zanatta.desafioconquer.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
 import com.zanatta.desafioconquer.model.GastosPagamentoCartaoParam;
 
 /**
@@ -11,5 +12,6 @@ import com.zanatta.desafioconquer.model.GastosPagamentoCartaoParam;
  */
 @Repository
 public interface GastosPagamentoCartaoParamRepository extends JpaRepository<GastosPagamentoCartaoParam, Long> {
+
 
 }

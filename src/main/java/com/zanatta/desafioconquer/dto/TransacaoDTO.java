@@ -1,6 +1,13 @@
 package com.zanatta.desafioconquer.dto;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -21,35 +28,35 @@ public class TransacaoDTO {
 	@JsonProperty("valorTransacao") private String valorTransacao;
 
 	public String getDataTransacao() {
-		return this.dataTransacao;
+		return dataTransacao;
 	}
 
 	public EstabelecimentoDTO getEstabelecimento() {
-		return this.estabelecimento;
+		return estabelecimento;
 	}
 
 	public String getId() {
-		return this.id;
+		return id;
 	}
 
 	public String getMesExtrato() {
-		return this.mesExtrato;
+		return mesExtrato;
 	}
 
 	public PortadorDTO getPortador() {
-		return this.portador;
+		return portador;
 	}
 
 	public TipoCartaoDTO getTipoCartao() {
-		return this.tipoCartao;
+		return tipoCartao;
 	}
 
 	public UnidadeGestoraDTO getUnidadeGestora() {
-		return this.unidadeGestora;
+		return unidadeGestora;
 	}
 
 	public String getValorTransacao() {
-		return this.valorTransacao;
+		return valorTransacao;
 	}
 
 	public void setDataTransacao(final String dataTransacao) {
@@ -84,4 +91,15 @@ public class TransacaoDTO {
 		this.valorTransacao = valorTransacao;
 	}
 
+	@JsonIgnore
+	public BigDecimal getValorTransacaoNumber() {
+		if (StringUtils.isNotEmpty(valorTransacao)) {
+			String valorTmp = valorTransacao.replace(".", "");
+			valorTmp = valorTmp.replace(",", ".");
+			BigDecimal number = new BigDecimal(valorTmp);
+			number.setScale(2, RoundingMode.HALF_UP);
+			return number;
+		}
+		return BigDecimal.ZERO;
+	}
 }

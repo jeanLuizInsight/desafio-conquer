@@ -1,8 +1,14 @@
 package com.zanatta.desafioconquer.vo;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Pattern;
+
+import com.zanatta.desafioconquer.model.GastosPagamentoCartaoParam;
 
 /**
  * VO para filtros de tela de consulta à API.
@@ -13,8 +19,8 @@ public class GastosPagamentoCartaoParamVO {
 
 	private String mesExtratoInicio;
 	private String mesExtratoFim;
-	private String dataTransacaoInicio;
-	private String dataTransacaoFim;
+	private LocalDate dataTransacaoInicio;
+	private LocalDate dataTransacaoFim;
 	private Integer tipoCartao;
 	private String codigoOrgao;
 	private String cpfPortador;
@@ -26,49 +32,49 @@ public class GastosPagamentoCartaoParamVO {
 	@NotEmpty(message = "{gastosPagamentoCartaoParamVO.mesExtratoInicio.empty}")
 	@Pattern(regexp = "^(0[1-9]{1}|1[0-2]{1})/\\d{4}$", message = "{gastosPagamentoCartaoParamVO.mesExtratoInicio.pattern}")
 	public String getMesExtratoInicio() {
-		return this.mesExtratoInicio;
+		return mesExtratoInicio;
 	}
 
 	@NotEmpty(message = "{gastosPagamentoCartaoParamVO.mesExtratoFim.empty}")
 	@Pattern(regexp = "^(0[1-9]{1}|1[0-2]{1})/\\d{4}$", message = "{gastosPagamentoCartaoParamVO.mesExtratoFim.pattern}")
 	public String getMesExtratoFim() {
-		return this.mesExtratoFim;
+		return mesExtratoFim;
 	}
 
-	public String getDataTransacaoInicio() {
-		return this.dataTransacaoInicio;
+	public LocalDate getDataTransacaoInicio() {
+		return dataTransacaoInicio;
 	}
 
-	public String getDataTransacaoFim() {
-		return this.dataTransacaoFim;
+	public LocalDate getDataTransacaoFim() {
+		return dataTransacaoFim;
 	}
 
 	public Integer getTipoCartao() {
-		return this.tipoCartao;
+		return tipoCartao;
 	}
 
 	public String getCodigoOrgao() {
-		return this.codigoOrgao;
+		return codigoOrgao;
 	}
 
 	public String getCpfPortador() {
-		return this.cpfPortador;
+		return cpfPortador;
 	}
 
 	public String getCpfCnpjFavorecido() {
-		return this.cpfCnpjFavorecido;
+		return cpfCnpjFavorecido;
 	}
 
 	public BigDecimal getValorDe() {
-		return this.valorDe;
+		return valorDe;
 	}
 
 	public BigDecimal getValorAte() {
-		return this.valorAte;
+		return valorAte;
 	}
 
 	public Integer getPagina() {
-		return this.pagina;
+		return pagina;
 	}
 
 	public void setMesExtratoInicio(final String mesExtratoInicio) {
@@ -79,11 +85,11 @@ public class GastosPagamentoCartaoParamVO {
 		this.mesExtratoFim = mesExtratoFim;
 	}
 
-	public void setDataTransacaoInicio(final String dataTransacaoInicio) {
+	public void setDataTransacaoInicio(final LocalDate dataTransacaoInicio) {
 		this.dataTransacaoInicio = dataTransacaoInicio;
 	}
 
-	public void setDataTransacaoFim(final String dataTransacaoFim) {
+	public void setDataTransacaoFim(final LocalDate dataTransacaoFim) {
 		this.dataTransacaoFim = dataTransacaoFim;
 	}
 
@@ -113,6 +119,26 @@ public class GastosPagamentoCartaoParamVO {
 
 	public void setPagina(final Integer pagina) {
 		this.pagina = pagina;
+	}
+
+	public static GastosPagamentoCartaoParam buildGastosPagamentoCartaoParam(GastosPagamentoCartaoParamVO vo) {
+		GastosPagamentoCartaoParam param = new GastosPagamentoCartaoParam();
+		param.setCodigoOrgao(vo.getCodigoOrgao());
+		param.setCpfCnpjFavorecido(vo.getCpfCnpjFavorecido());
+		param.setCpfPortador(vo.getCpfPortador());
+		if (vo.getDataTransacaoFim() != null)  {
+			param.setDataTransacaoFim(Date.from(vo.getDataTransacaoFim().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		}
+		if (vo.getDataTransacaoInicio() != null) {
+			param.setDataTransacaoInicio(Date.from(vo.getDataTransacaoInicio().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+		}
+		param.setMesExtratoFim(vo.getMesExtratoFim());
+		param.setMesExtratoInicio(vo.getMesExtratoInicio());
+		param.setPagina(vo.getPagina());
+		param.setTipoCartao(vo.getTipoCartao());
+		param.setValorAte(vo.getValorAte());
+		param.setValorDe(vo.getValorDe());
+		return param;
 	}
 
 }
