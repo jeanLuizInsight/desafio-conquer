@@ -5,5 +5,5 @@ jdk:
   - openjdk8
 before_install:
   - chmod +x mvnw
-  - mysql -u root --password="ae3Fresqor10@"
+  - sudo mysql -u root --password="ae3Fresqor10@"
   - sudo mysql -e 'CREATE DATABASE desafio_conquer; USE desafio_conquer;'
