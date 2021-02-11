@@ -2,7 +2,7 @@ package com.zanatta.desafioconquer.io.rest.integracao.portalTransparencia;
 
 import java.util.Arrays;
 import java.util.List;
-
+import org.apache.commons.lang3.StringUtils;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +17,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -65,10 +64,12 @@ public class PortalTransparenciaGovRest {
 					entity,
 					String.class);
 			if (getForEntity.getStatusCode().equals(HttpStatus.OK)) {
-				final ObjectMapper mapper = new ObjectMapper();
-				final ObjectReader reader = mapper.reader().forType(new TypeReference<List<TransacaoDTO>>() {});
 				final String data = getForEntity.getBody();
-				retorno = reader.readValue(data);
+				if (StringUtils.isNotEmpty(data)) {
+					final ObjectMapper mapper = new ObjectMapper();
+					final ObjectReader reader = mapper.reader().forType(new TypeReference<List<TransacaoDTO>>() {});
+					retorno = reader.readValue(data);
+				}
 			} else {
 				final JSONObject obj = new JSONObject(getForEntity.getBody());
 				final String msg = obj.getString("Error API");

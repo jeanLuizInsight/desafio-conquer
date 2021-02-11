@@ -1,8 +1,5 @@
 package com.zanatta.desafioconquer.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.mockito.Mockito.when;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -13,18 +10,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.util.Assert;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -40,7 +35,6 @@ import com.zanatta.desafioconquer.repository.GastosPagamentoCartaoParamRepositor
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 10/02/2021
  */
-@RunWith(SpringRunner.class)
 public class GastoPorMunicipioServiceTest {
 
 	@InjectMocks @Spy private GastoPorMunicipioService gastoPorMunicipioService;
@@ -53,7 +47,8 @@ public class GastoPorMunicipioServiceTest {
 	}
 
 	@Test
-	public void deveAgruparDadosApiPorMunicipio() throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void deveAgruparDadosApiPorMunicipio() throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
 		// cenário
 		final File inputFile = new File(this.getClass().getResource("/dataList.json").getFile());
 		final String json = new String(Files.readAllBytes(inputFile.toPath()));
@@ -71,11 +66,12 @@ public class GastoPorMunicipioServiceTest {
 		// validação
 		final MunicipioDTO dto = new MunicipioDTO();
 		dto.setCodigoIBGE("4314902");
-		Assert.isTrue(map.get(dto).size() == 2, "A regra não realizou o agrupamento da forma esperada!");
+		Assertions.assertTrue(map.get(dto).size() == 2, "A regra não realizou o agrupamento da forma esperada!");
 	}
 
 	@Test
-	public void deveConverterDtoDosRegistrosDaApiParaGastoPorMunicipio() throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void deveConverterDtoDosRegistrosDaApiParaGastoPorMunicipio() throws IOException, NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// cenário
 		final GastosPagamentoCartaoParam param = new GastosPagamentoCartaoParam();
 		final File inputFile = new File(this.getClass().getResource("/dataList.json").getFile());
@@ -94,11 +90,12 @@ public class GastoPorMunicipioServiceTest {
 		final List<GastoPorMunicipio> listaConvertida = (List<GastoPorMunicipio>) metodo.invoke(this.gastoPorMunicipioService, map, param);
 
 		// validação
-		Assert.isTrue(listaConvertida.size() == 7, "A regra não realizou a conversão do número de objetos esperado!");
+		Assertions.assertTrue(listaConvertida.size() == 7, "A regra não realizou a conversão do número de objetos esperado!");
 	}
 
 	@Test
-	public void deveCalcularValorTotalDasTransacoesPorMunicipio() throws IOException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	public void deveCalcularValorTotalDasTransacoesPorMunicipio() throws IOException, NoSuchMethodException, SecurityException,
+			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// cenário
 		final File inputFile = new File(this.getClass().getResource("/dataList.json").getFile());
 		final String json = new String(Files.readAllBytes(inputFile.toPath()));
@@ -114,7 +111,7 @@ public class GastoPorMunicipioServiceTest {
 		final BigDecimal valor = (BigDecimal) metodo.invoke(this.gastoPorMunicipioService, dados);
 
 		// verificacao
-		MatcherAssert.assertThat(valor, is(new BigDecimal("12781.22")));
+		MatcherAssert.assertThat(valor, CoreMatchers.is(new BigDecimal("12781.22")));
 	}
 
 	@Test
@@ -138,15 +135,15 @@ public class GastoPorMunicipioServiceTest {
 		final List<TransacaoDTO> dadoList = Arrays.asList(dado);
 
 		// gravando a expectativa
-		when(this.gastoPorMunicipioService.saveGastoPorMunicipio(dadoList, param)).thenReturn(listaRetorno);
+		Mockito.when(this.gastoPorMunicipioService.saveGastoPorMunicipio(dadoList, param)).thenReturn(listaRetorno);
 
 		// ação
 		final List<GastoPorMunicipio> gmpList = this.gastoPorMunicipioService.saveGastoPorMunicipio(dadoList, param);
 
 		// validação
-		Assert.isTrue(gmpList.size() == 1, "Não gerou o número de registro corretamente!");
-		MatcherAssert.assertThat(gmpList.get(0).getCodigoIBGE(), is("1600303"));
-		MatcherAssert.assertThat(gmpList.get(0).getValorTotal(), is(new BigDecimal("202.52")));
+		Assertions.assertTrue(gmpList.size() == 1, "Não gerou o número de registro corretamente!");
+		MatcherAssert.assertThat(gmpList.get(0).getCodigoIBGE(), CoreMatchers.is("1600303"));
+		MatcherAssert.assertThat(gmpList.get(0).getValorTotal(), CoreMatchers.is(new BigDecimal("202.52")));
 
 	}
 }
