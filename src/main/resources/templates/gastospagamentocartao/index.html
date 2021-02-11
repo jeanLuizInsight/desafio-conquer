@@ -10,35 +10,39 @@
 
 <section layout:fragment="conteudo">
 	<div class="inner cover">
-		<br><br>
+		<br><br><br><br><br><br>
 		<h1 class="cover-heading">Gastos de pagamento via cartão por município</h1>
 		<br><br>
 		<div class="lead">
 			<form class="form-horizontal" id="form-consulta" th:object="${gastosPagamentoCartaoParamVO}">
 				<div align="center">
-					<div class="input-group">
-						<label class="control-label" for="div-mes-inicial">Mês de extrato inicial:</label>
-						<br>
-						<div id="div-mes-inicial" class="input-group date">
-							<input class="form-control input-sm" size="15" tabindex="40" data-format="MM/yyyy" th:field="*{mesExtratoInicio}" readonly="readonly">
-							<span class="add-on">
-								<span data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"
-									class="glyphicon-calendar glyphicon">
+					<div class="row">
+						<div class="form-group">
+							<label class="control-label" for="div-mes-inicial">Mês de extrato inicial:</label>
+							<br>
+							<div class="input-group date col-sm-2" id="div-mes-inicial">
+								<input class="form-control" size="15" tabindex="40" data-format="MM/yyyy" th:field="*{mesExtratoInicio}" readonly="readonly">
+								<span class="input-group-addon add-on">
+									<span data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"
+										class="glyphicon-calendar glyphicon">
+									</span>
 								</span>
-							</span>
+							</div>
 						</div>
 					</div>
-					<div class="input-group">
-						<label class="control-label" for="div-mes-final">Mês de extrato Final:</label>
-						<br>
-						<div id="div-mes-final" class="input-group date">
-							<input class="form-control input-sm" size="15" tabindex="40" data-format="MM/yyyy" th:field="*{mesExtratoFim}" readonly="readonly">
-							<span class="add-on">
-								<span data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"
-									class="glyphicon-calendar glyphicon">
-								</span>
-							</span>
-						</div>
+					<div class="row">
+						<div class="form-group">
+							<label class="control-label" for="div-mes-final">Mês de extrato Final:</label>
+							<br>
+				            <div class="input-group date col-sm-2" id="div-mes-final">
+				            	<input class="form-control" size="15" tabindex="40" data-format="MM/yyyy" th:field="*{mesExtratoFim}" readonly="readonly">
+			               		<span class="input-group-addon add-on">
+			               			<span data-time-icon="glyphicon glyphicon-time" data-date-icon="glyphicon glyphicon-calendar"
+										class="glyphicon-calendar glyphicon">
+									</span>
+			               		</span>
+				            </div>
+				         </div>
 					</div>
 				</div>
 				<br><br>
