@@ -33,6 +33,7 @@ Instruções:
 
 * Certifique-se de que o servidor MySQL está executando;
 * Importe o projeto no STS como uma aplicação maven e inicie pelo serviço habilitado na aba Boot Dashboard;
+* Após o serviço iniciar acesse: http://localhost:8181/desafioconquer/
 
 ## :bookmark: Melhorias a serem feitas
 * Adicionar todos os campos disponíveis nos filtros da API ao formulário na página de consulta;
