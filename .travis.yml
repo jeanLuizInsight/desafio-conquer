@@ -1,5 +1,8 @@
 language: java
+services:
+  - mysql
 jdk:
   - openjdk8
 before_install:
   - chmod +x mvnw
+  - sudo mysql -e 'CREATE DATABASE desafio_conquer; USE desafio_conquer;'
