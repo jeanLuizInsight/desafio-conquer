@@ -2,7 +2,7 @@
 
 # Aplicação Web para consulta ao Portal da Transparencia do Governo Federal
 
-Descrição: Aplicação Web utilizada para desafio Full Stack Developer da Conquer.
+Descrição: Aplicação Web utilizada para desafio à vaga de Full Stack Developer na [Conquer](https://escolaconquer.abler.com.br/vagas/desenvolvedor-fullstack-senior-793496).
 
 ## :computer: Desafio
 Projeto utilizado para o usuário realizar consulta na API REST do Portal da Transparência do Governo Federal, informando um intervalo de meses, e então obter em arquivo no formato .csv os dados de pagamento efetuados via cartão agrupando o saldo por municipio.
