@@ -5,4 +5,5 @@ jdk:
   - openjdk8
 before_install:
   - chmod +x mvnw
-  - sudo mysql -e "USE mysql; UPDATE user SET password=PASSWORD('ae3Fresqor10@') WHERE user='root'; FLUSH PRIVILEGES; CREATE DATABASE desafio_conquer; USE desafio_conquer;"
+  - mysql -u root --password="ae3Fresqor10@"
+  - sudo mysql -e 'CREATE DATABASE desafio_conquer; USE desafio_conquer;'
