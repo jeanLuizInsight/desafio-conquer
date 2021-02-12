@@ -6,5 +6,3 @@ jdk:
 before_install:
   - chmod +x mvnw
   - sudo mysql -e 'CREATE DATABASE desafio_conquer; USE desafio_conquer;'
-before_script:
-  - echo "USE mysql;UPDATE user SET password=PASSWORD('ae3Fresqor10@') WHERE user='root';FLUSH PRIVILEGES;" | mysql -u root

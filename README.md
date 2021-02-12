@@ -25,13 +25,14 @@ Projeto utilizado para o usuário realizar consulta na API REST do Portal da Tra
 ## :wrench: Rodando a aplicação
 Requisitos:
 
-* Servidor MySQL configurado com usuário root e senha ae3Fresqor10@ rodando local na porta 3306 ou alterar a URL do datasource no resource application.properties do projeto;
+* Servidor MySQL configurado com usuário root sem senha rodando local na porta 3306 ou alterar a URL do datasource e credenciais no resource application.properties do projeto;
+** Database da Aplicação: desafio_conquer
 * Spring Tool Suite 4 (STS);
 * Java 8;
 
 Instruções:
 
-* Certifique-se de que o servidor MySQL está executando;
+* Certifique-se de que o servidor MySQL está executando e o database desafio_conquer esteje criado;
 * Importe o projeto no STS como uma aplicação maven e inicie pelo serviço habilitado na aba Boot Dashboard;
 * Após o serviço iniciar acesse: http://localhost:8181/desafioconquer/
 
