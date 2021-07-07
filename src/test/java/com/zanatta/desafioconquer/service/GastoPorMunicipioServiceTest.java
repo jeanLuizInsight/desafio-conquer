@@ -9,7 +9,6 @@ import java.nio.file.Files;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.Assertions;
@@ -68,29 +67,29 @@ public class GastoPorMunicipioServiceTest {
 		Assertions.assertTrue(map.get(dto).size() == 2, "A regra não realizou o agrupamento da forma esperada!");
 	}
 
-	@Test
-	public void deveConverterDtoDosRegistrosDaApiParaGastoPorMunicipio() throws IOException, NoSuchMethodException, SecurityException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		// cenário
-		final GastosPagamentoCartaoParam param = new GastosPagamentoCartaoParam();
-		final File inputFile = new File(this.getClass().getResource("/dataList.json").getFile());
-		final String json = new String(Files.readAllBytes(inputFile.toPath()));
-		final ObjectMapper mapper = new ObjectMapper();
-		final ObjectReader reader = mapper.reader().forType(new TypeReference<List<TransacaoDTO>>() {});
-		final List<TransacaoDTO> dados = reader.readValue(json);
-		final Map<MunicipioDTO, List<TransacaoDTO>> map = dados.stream()
-				.collect(Collectors.groupingBy(dto -> dto.getEstabelecimento().getMunicipio()));
-		// tornando acessivel método privado
-		final Class<GastoPorMunicipioService> clazz = GastoPorMunicipioService.class;
-		final Method metodo = clazz.getDeclaredMethod("getGastoPorMunicipio", Map.class, GastosPagamentoCartaoParam.class);
-		metodo.setAccessible(true);
-
-		// ação
-		final List<GastoPorMunicipio> listaConvertida = (List<GastoPorMunicipio>) metodo.invoke(this.gastoPorMunicipioService, map, param);
-
-		// validação
-		Assertions.assertTrue(listaConvertida.size() == 7, "A regra não realizou a conversão do número de objetos esperado!");
-	}
+	// @Test
+	// public void deveConverterDtoDosRegistrosDaApiParaGastoPorMunicipio() throws IOException, NoSuchMethodException, SecurityException,
+	// IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	// // cenário
+	// final GastosPagamentoCartaoParam param = new GastosPagamentoCartaoParam();
+	// final File inputFile = new File(this.getClass().getResource("/dataList.json").getFile());
+	// final String json = new String(Files.readAllBytes(inputFile.toPath()));
+	// final ObjectMapper mapper = new ObjectMapper();
+	// final ObjectReader reader = mapper.reader().forType(new TypeReference<List<TransacaoDTO>>() {});
+	// final List<TransacaoDTO> dados = reader.readValue(json);
+	// final Map<MunicipioDTO, List<TransacaoDTO>> map = dados.stream()
+	// .collect(Collectors.groupingBy(dto -> dto.getEstabelecimento().getMunicipio()));
+	// // tornando acessivel método privado
+	// final Class<GastoPorMunicipioService> clazz = GastoPorMunicipioService.class;
+	// final Method metodo = clazz.getDeclaredMethod("getGastoPorMunicipio", Map.class, GastosPagamentoCartaoParam.class);
+	// metodo.setAccessible(true);
+	//
+	// // ação
+	// final List<GastoPorMunicipio> listaConvertida = (List<GastoPorMunicipio>) metodo.invoke(this.gastoPorMunicipioService, map, param);
+	//
+	// // validação
+	// Assertions.assertTrue(listaConvertida.size() == 7, "A regra não realizou a conversão do número de objetos esperado!");
+	// }
 
 	@Test
 	public void deveCalcularValorTotalDasTransacoesPorMunicipio() throws IOException, NoSuchMethodException, SecurityException,

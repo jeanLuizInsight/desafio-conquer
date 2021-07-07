@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
-import com.zanatta.desafioconquer.io.rest.integracao.portalTransparencia.PortalTransparenciaGovRest;
+import com.zanatta.desafioconquer.model.GastoPorEstabelecimento;
 import com.zanatta.desafioconquer.model.GastoPorMunicipio;
 import com.zanatta.desafioconquer.service.GastoPorMunicipioService;
 import com.zanatta.desafioconquer.util.MessageUtil;
@@ -34,13 +34,11 @@ import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 public class GastosPagamentoCartaoController {
 
 	@Autowired private MessageUtil messageUtil;
-	@Autowired private PortalTransparenciaGovRest apiRest;
 	@Autowired private GastoPorMunicipioService gastoPorMunicipioService;
 
 	@GetMapping()
 	public ModelAndView nova(final GastosPagamentoCartaoParamVO gastosPagamentoCartaoParamVO) {
-		final ModelAndView mv = new ModelAndView("gastospagamentocartao/index");
-		return mv;
+		return new ModelAndView("gastospagamentocartao/index");
 	}
 
 	@GetMapping("/consultar")
@@ -50,7 +48,7 @@ public class GastosPagamentoCartaoController {
 			return new ResponseEntity<>(this.messageUtil.getMessageErrorBindResult(result), HttpStatus.BAD_GATEWAY);
 		}
 		try {
-			final List<GastoPorMunicipio> dadosReport = this.gastoPorMunicipioService.saveGastoPorMunicipio(gastosPagamentoCartaoParamVO);
+			final List<GastoPorEstabelecimento> dadosReport = this.gastoPorMunicipioService.saveGastoPorMunicipio(gastosPagamentoCartaoParamVO);
 			response.setContentType("text/csv");
 			response.setHeader("charset", "UTF-8");
 			this.gerarArquivoCsv(response.getWriter(), dadosReport);
@@ -68,10 +66,10 @@ public class GastosPagamentoCartaoController {
 	 * @param dados
 	 * @throws IOException
 	 */
-	private void gerarArquivoCsv(final PrintWriter writer, final List<GastoPorMunicipio> dados) throws IOException {
+	private void gerarArquivoCsv(final PrintWriter writer, final List<GastoPorEstabelecimento> dados) throws IOException {
 		final CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader(GastoPorMunicipio.getFieldsToCsv()));
 		csvPrinter.printRecords(dados.stream()
-				.map(GastoPorMunicipio::getValuesToCsv)
+				.map(GastoPorEstabelecimento::getValuesToCsv)
 				.collect(Collectors.toList()));
 		csvPrinter.flush();
 	}

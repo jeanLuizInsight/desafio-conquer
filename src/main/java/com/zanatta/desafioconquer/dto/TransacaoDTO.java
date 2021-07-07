@@ -2,11 +2,8 @@ package com.zanatta.desafioconquer.dto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
 import javax.xml.bind.annotation.XmlRootElement;
-
 import org.apache.commons.lang3.StringUtils;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -96,7 +93,7 @@ public class TransacaoDTO {
 		if (StringUtils.isNotEmpty(this.valorTransacao)) {
 			String valorTmp = this.valorTransacao.replace(".", "");
 			valorTmp = valorTmp.replace(",", ".");
-			final BigDecimal number = new BigDecimal(valorTmp);
+			final BigDecimal number = BigDecimal.valueOf(new Double(valorTmp));
 			number.setScale(2, RoundingMode.HALF_UP);
 			return number;
 		}

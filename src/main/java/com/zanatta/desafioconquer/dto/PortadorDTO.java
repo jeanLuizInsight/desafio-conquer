@@ -1,7 +1,6 @@
 package com.zanatta.desafioconquer.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -12,19 +11,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @XmlRootElement
 public class PortadorDTO {
 
-	@JsonProperty("codigoFormatado") private String codigoFormatado;
+	@JsonProperty("cpfFormatado") private String cpfFormatado;
+	@JsonProperty("nis") private String nis;
 	@JsonProperty("nome") private String nome;
 
-	public String getCodigoFormatado() {
-		return this.codigoFormatado;
+	public String getCpfFormatado() {
+		return this.cpfFormatado;
+	}
+
+	public String getNis() {
+		return this.nis;
 	}
 
 	public String getNome() {
 		return this.nome;
 	}
 
-	public void setCodigoFormatado(final String codigoFormatado) {
-		this.codigoFormatado = codigoFormatado;
+	public void setCpfFormatado(final String cpfFormatado) {
+		this.cpfFormatado = cpfFormatado;
+	}
+
+	public void setNis(final String nis) {
+		this.nis = nis;
 	}
 
 	public void setNome(final String nome) {

@@ -1,7 +1,6 @@
 package com.zanatta.desafioconquer.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -14,7 +13,9 @@ public class UnidadeGestoraDTO {
 
 	@JsonProperty("codigo") private String codigo;
 	@JsonProperty("nome") private String nome;
-	@JsonProperty("orgaoVinculado") OrgaoVinculadoDTO orgaoVinculado;
+	@JsonProperty("descricaoPoder") private String descricaoPoder;
+	@JsonProperty("orgaoMaximo") private OrgaoMaximoDTO orgaoMaximo;
+	@JsonProperty("orgaoVinculado") private OrgaoVinculadoDTO orgaoVinculado;
 
 	public String getCodigo() {
 		return this.codigo;
@@ -22,6 +23,14 @@ public class UnidadeGestoraDTO {
 
 	public String getNome() {
 		return this.nome;
+	}
+
+	public String getDescricaoPoder() {
+		return this.descricaoPoder;
+	}
+
+	public OrgaoMaximoDTO getOrgaoMaximo() {
+		return this.orgaoMaximo;
 	}
 
 	public OrgaoVinculadoDTO getOrgaoVinculado() {
@@ -34,6 +43,14 @@ public class UnidadeGestoraDTO {
 
 	public void setNome(final String nome) {
 		this.nome = nome;
+	}
+
+	public void setDescricaoPoder(final String descricaoPoder) {
+		this.descricaoPoder = descricaoPoder;
+	}
+
+	public void setOrgaoMaximo(final OrgaoMaximoDTO orgaoMaximo) {
+		this.orgaoMaximo = orgaoMaximo;
 	}
 
 	public void setOrgaoVinculado(final OrgaoVinculadoDTO orgaoVinculado) {
