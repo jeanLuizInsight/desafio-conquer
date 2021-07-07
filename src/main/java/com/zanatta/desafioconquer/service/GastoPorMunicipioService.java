@@ -5,17 +5,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
+import org.springframework.util.CollectionUtils;
 import com.zanatta.desafioconquer.dto.MunicipioDTO;
 import com.zanatta.desafioconquer.dto.TransacaoDTO;
+import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
+import com.zanatta.desafioconquer.io.rest.integracao.portalTransparencia.PortalTransparenciaGovRest;
 import com.zanatta.desafioconquer.model.GastoPorMunicipio;
 import com.zanatta.desafioconquer.model.GastosPagamentoCartaoParam;
 import com.zanatta.desafioconquer.repository.GastoPorMunicipioRepository;
 import com.zanatta.desafioconquer.repository.GastosPagamentoCartaoParamRepository;
+import com.zanatta.desafioconquer.util.MessageUtil;
+import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 
 /**
  * Manager com as regras para dados da entidade GastoPorMunicipio
@@ -27,14 +31,26 @@ public class GastoPorMunicipioService {
 
 	@Autowired private GastoPorMunicipioRepository gastoPorMunicipioRepository;
 	@Autowired private GastosPagamentoCartaoParamRepository gastosPagamentoCartaoParamRepository;
+	@Autowired private PortalTransparenciaGovRest apiRest;
+	@Autowired private MessageUtil messageUtil;
+
+	@Transactional(propagation = Propagation.NEVER)
+	public List<GastoPorMunicipio> saveGastoPorMunicipio(final GastosPagamentoCartaoParamVO paramVO) throws ApiDadosCartoesException {
+		final List<TransacaoDTO> dadosApi = this.apiRest.getGastosPorMeioDeCartaoDePagamento(paramVO);
+		if (CollectionUtils.isEmpty(dadosApi)) {
+			throw new ApiDadosCartoesException(this.messageUtil.getText("msg.api.dados.empty"));
+		}
+		final Map<MunicipioDTO, List<TransacaoDTO>> map = this.agruparDadosApiPorMunicipio(dadosApi);
+		final GastosPagamentoCartaoParam param = GastosPagamentoCartaoParamVO.buildGastosPagamentoCartaoParam(paramVO);
+		final List<GastoPorMunicipio> dadosPersistencia = this.getGastoPorMunicipio(map, param);
+		this.saveGastoPorMunicipio(param, dadosPersistencia);
+		return dadosPersistencia;
+	}
 
 	@Transactional
-	public List<GastoPorMunicipio> saveGastoPorMunicipio(final List<TransacaoDTO> dadosApi, final GastosPagamentoCartaoParam param) {
-		final Map<MunicipioDTO, List<TransacaoDTO>> map = this.agruparDadosApiPorMunicipio(dadosApi);
-		final List<GastoPorMunicipio> dadosPersistencia = this.getGastoPorMunicipio(map, param);
+	private void saveGastoPorMunicipio(final GastosPagamentoCartaoParam param, final List<GastoPorMunicipio> dadosPersistencia) {
 		this.gastosPagamentoCartaoParamRepository.save(param);
 		this.gastoPorMunicipioRepository.saveAll(dadosPersistencia);
-		return dadosPersistencia;
 	}
 
 	/**

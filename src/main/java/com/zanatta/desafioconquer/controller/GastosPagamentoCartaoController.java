@@ -4,24 +4,19 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-
-import com.zanatta.desafioconquer.dto.TransacaoDTO;
 import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
 import com.zanatta.desafioconquer.io.rest.integracao.portalTransparencia.PortalTransparenciaGovRest;
 import com.zanatta.desafioconquer.model.GastoPorMunicipio;
@@ -55,12 +50,7 @@ public class GastosPagamentoCartaoController {
 			return new ResponseEntity<>(this.messageUtil.getMessageErrorBindResult(result), HttpStatus.BAD_GATEWAY);
 		}
 		try {
-			final List<TransacaoDTO> dadosApi = this.apiRest.getGastosPorMeioDeCartaoDePagamento(gastosPagamentoCartaoParamVO);
-			if (CollectionUtils.isEmpty(dadosApi)) {
-				return new ResponseEntity<>(this.messageUtil.getText("msg.api.dados.empty"), HttpStatus.BAD_GATEWAY);
-			}
-			final List<GastoPorMunicipio> dadosReport = this.gastoPorMunicipioService.saveGastoPorMunicipio(dadosApi,
-					GastosPagamentoCartaoParamVO.buildGastosPagamentoCartaoParam(gastosPagamentoCartaoParamVO));
+			final List<GastoPorMunicipio> dadosReport = this.gastoPorMunicipioService.saveGastoPorMunicipio(gastosPagamentoCartaoParamVO);
 			response.setContentType("text/csv");
 			response.setHeader("charset", "UTF-8");
 			this.gerarArquivoCsv(response.getWriter(), dadosReport);
