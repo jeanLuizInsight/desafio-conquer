@@ -33,9 +33,9 @@ import com.zanatta.desafioconquer.repository.GastosPagamentoCartaoParamRepositor
  * @author <a href="mailto:jean.zanatta@unoesc.edu.br">Jean Luiz Zanatta</a>
  * @since 10/02/2021
  */
-public class GastoPorMunicipioServiceTest {
+public class GastoPorEstabelecimentoServiceTest {
 
-	@InjectMocks @Spy private GastoPorMunicipioService gastoPorMunicipioService;
+	@InjectMocks @Spy private GastoPorEstabelecimentoService gastoPorMunicipioService;
 	@Mock private GastoPorMunicipioRepository gastoPorMunicipioRepository;
 	@Mock private GastosPagamentoCartaoParamRepository gastosPagamentoCartaoParamRepository;
 
@@ -54,7 +54,7 @@ public class GastoPorMunicipioServiceTest {
 		final ObjectReader reader = mapper.reader().forType(new TypeReference<List<TransacaoDTO>>() {});
 		final List<TransacaoDTO> dados = reader.readValue(json);
 		// tornando acessivel método privado
-		final Class<GastoPorMunicipioService> clazz = GastoPorMunicipioService.class;
+		final Class<GastoPorEstabelecimentoService> clazz = GastoPorEstabelecimentoService.class;
 		final Method metodo = clazz.getDeclaredMethod("agruparDadosApiPorMunicipio", List.class);
 		metodo.setAccessible(true);
 
@@ -101,7 +101,7 @@ public class GastoPorMunicipioServiceTest {
 		final ObjectReader reader = mapper.reader().forType(new TypeReference<List<TransacaoDTO>>() {});
 		final List<TransacaoDTO> dados = reader.readValue(json);
 		// tornando acessiveel do método privado
-		final Class<GastoPorMunicipioService> clazz = GastoPorMunicipioService.class;
+		final Class<GastoPorEstabelecimentoService> clazz = GastoPorEstabelecimentoService.class;
 		final Method metodo = clazz.getDeclaredMethod("calcularValorTotalDasTransacoesPorMunicipio", List.class);
 		metodo.setAccessible(true);
 

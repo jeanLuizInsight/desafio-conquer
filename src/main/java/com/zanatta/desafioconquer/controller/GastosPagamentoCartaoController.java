@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zanatta.desafioconquer.exception.portalTransparencia.ApiDadosCartoesException;
 import com.zanatta.desafioconquer.model.GastoPorEstabelecimento;
 import com.zanatta.desafioconquer.model.GastoPorMunicipio;
-import com.zanatta.desafioconquer.service.GastoPorMunicipioService;
+import com.zanatta.desafioconquer.service.GastosPagamentoCartaoService;
 import com.zanatta.desafioconquer.util.MessageUtil;
 import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 
@@ -34,7 +34,7 @@ import com.zanatta.desafioconquer.vo.GastosPagamentoCartaoParamVO;
 public class GastosPagamentoCartaoController {
 
 	@Autowired private MessageUtil messageUtil;
-	@Autowired private GastoPorMunicipioService gastoPorMunicipioService;
+	@Autowired private GastosPagamentoCartaoService gastosPagamentoCartaoService;
 
 	@GetMapping()
 	public ModelAndView nova(final GastosPagamentoCartaoParamVO gastosPagamentoCartaoParamVO) {
@@ -48,7 +48,8 @@ public class GastosPagamentoCartaoController {
 			return new ResponseEntity<>(this.messageUtil.getMessageErrorBindResult(result), HttpStatus.BAD_GATEWAY);
 		}
 		try {
-			final List<GastoPorEstabelecimento> dadosReport = this.gastoPorMunicipioService.saveGastoPorMunicipio(gastosPagamentoCartaoParamVO);
+			final List<GastoPorEstabelecimento> dadosReport = this.gastosPagamentoCartaoService.saveGastoPorEstabelecimento(
+					gastosPagamentoCartaoParamVO);
 			response.setContentType("text/csv");
 			response.setHeader("charset", "UTF-8");
 			this.gerarArquivoCsv(response.getWriter(), dadosReport);
